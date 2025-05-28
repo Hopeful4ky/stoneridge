@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoneRidge Saddlebreds - Management System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a237e;
+            --burgundy: #7b1538;
+            --silver: #c0c0c0;
+            --light-silver: #f5f5f5;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--burgundy) 100%);
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 400px;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .crest-container {
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .crest-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjMWEyMzdlIi8+Cjx0ZXh0IHg9IjYwIiB5PSI2NSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U1I8L3RleHQ+Cjwvc3ZnPg==') center/contain no-repeat;
+            border-radius: 50%;
+            border: 3px solid var(--silver);
+        }
+
+        .login-title {
+            color: var(--navy);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            color: var(--medium-gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--silver);
+            background: var(--white);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .lang-btn.active,
+        .lang-btn:hover {
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--silver);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--burgundy) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 35, 126, 0.3);
+        }
+
+        /* Dashboard Styles */
+        .app-container {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .app-container.active {
+            display: block !important;
+        }
+
+        /* Ensure login page is visible by default */
+        .login-container {
+            display: flex;
+        }
+
+        .login-container.hidden {
+            display: none !important;
+        }
+
+        .header {
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--navy);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-small {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .header-title {
+            color: var(--navy);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light-gray);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .main-content {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--white);
+            padding: 2rem 1rem;
+            box-shadow: var(--shadow);
+            border-right: 2px solid var(--light-silver);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--medium-gray);
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--burgundy) 100%);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .dashboard {
+            flex: 1;
+            padding: 2rem;
+            background: var(--light-gray);
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            color: var(--navy);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-subtitle {
+            color: var(--medium-gray);
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--navy);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--burgundy) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-silver);
+        }
+
+        .card-title {
+            color: var(--navy);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .schedule-item,
+        .task-item,
+        .message-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            background: var(--light-gray);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .schedule-item:hover,
+        .task-item:hover,
+        .message-item:hover {
+            background: var(--light-silver);
+            transform: translateX(5px);
+        }
+
+        .time-badge {
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .priority-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .priority-overdue {
+            background: var(--warning);
+            color: #000;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .avatar-dr { background: var(--success); }
+        .avatar-maria { background: var(--burgundy); }
+        .avatar-john { background: var(--navy); }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <div class="crest-container">
+                <div class="crest-image"></div>
+                <h1 class="login-title">StoneRidge Saddlebreds</h1>
+                <p class="login-subtitle">Professional Barn Management System</p>
+            </div>
+            
+            <div class="language-selector">
+                <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" onclick="setLanguage('es')">Español</button>
+            </div>
+            
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label class="form-label" id="usernameLabel">Username</label>
+                    <input type="text" class="form-input" id="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" id="passwordLabel">Password</label>
+                    <input type="password" class="form-input" id="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="appContainer" class="app-container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-small">SR</div>
+                <h1 class="header-title">StoneRidge Saddlebreds</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-profile" onclick="logout()">
+                    <i data-lucide="user"></i>
+                    <span>John Manager</span>
+                    <i data-lucide="log-out"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <nav class="sidebar">
+                <div class="nav-item active">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="horse"></i>
+                    <span>Horses</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Schedule</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Tasks</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>Staff</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="file-text"></i>
+                    <span>Reports</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="message-square"></i>
+                    <span>Messages</span>
+                </div>
+                <div class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </div>
+            </nav>
+
+            <main class="dashboard fade-in-up">
+                <div class="dashboard-header">
+                    <h2 class="dashboard-title">Dashboard Overview</h2>
+                    <p class="dashboard-subtitle">Welcome back! Here's what's happening at StoneRidge today.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="horse"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Total Horses</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="clipboard-check"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Pending Tasks</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="calendar-days"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Today's Events</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Active Staff</div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i data-lucide="clock"></i>
+                                Today's Schedule
+                            </h3>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-badge">06:00</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--navy);">Morning Feed</div>
+                                <div style="color: var(--medium-gray); font-size: 0.9rem;">All Horses • Maria Rodriguez</div>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-badge">08:00</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--navy);">Training Session</div>
+                                <div style="color: var(--medium-gray); font-size: 0.9rem;">Thunder Bay • John Thompson</div>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-badge">10:00</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--navy);">Lesson - Beginner</div>
+                                <div style="color: var(--medium-gray); font-size: 0.9rem;">Midnight Star • Sarah Wilson</div>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-badge">14:00</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--navy);">Veterinary Check</div>
+                                <div style="color: var(--medium-gray); font-size: 0.9rem;">Golden Dawn • Dr. Smith</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="alert-triangle"></i>
+                                    Urgent Tasks
+                                </h3>
+                            </div>
+                            
+                            <div class="task-item">
+                                <div>
+                                    <div style="font-weight: 600; color: var(--navy);">Clean Stalls</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.9rem;">Maria • Today</div>
+                                </div>
+                                <div class="priority-badge priority-high">High</div>
+                            </div>
+                            
+                            <div class="task-item">
+                                <div>
+                                    <div style="font-weight: 600; color: var(--navy);">Order Feed Supplies</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.9rem;">John • Yesterday</div>
+                                </div>
+                                <div class="priority-badge priority-overdue">Overdue</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="message-circle"></i>
+                                    Recent Messages
+                                </h3>
+                            </div>
+                            
+                            <div class="message-item">
+                                <div class="message-avatar avatar-dr">DS</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--navy);">Dr. Smith</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.9rem;">Golden Dawn's recovery is progressing well.</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.8rem;">10:30 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="message-item">
+                                <div class="message-avatar avatar-maria">M</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--navy);">Maria Rodriguez</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.9rem;">Feed delivery scheduled for tomorrow.</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.8rem;">09:15 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="message-item">
+                                <div class="message-avatar avatar-john">J</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--navy);">John Thompson</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.9rem;">Thunder Bay ready for competition prep.</div>
+                                    <div style="color: var(--medium-gray); font-size: 0.8rem;">08:45 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+
+        const translations = {
+            en: {
+                usernameLabel: 'Username',
+                passwordLabel: 'Password',
+                loginBtn: 'Sign In'
+            },
+            es: {
+                usernameLabel: 'Usuario',
+                passwordLabel: 'Contraseña',
+                loginBtn: 'Iniciar Sesión'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the clicked button
+            const clickedBtn = document.querySelector(`[onclick="setLanguage('${lang}')"]`);
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+                
+                // Add micro-interaction
+                clickedBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    clickedBtn.style.transform = '';
+                }, 150);
+            }
+            
+            // Update form labels
+            const t = translations[lang];
+            document.getElementById('usernameLabel').textContent = t.usernameLabel;
+            document.getElementById('passwordLabel').textContent = t.passwordLabel;
+            document.getElementById('loginBtn').textContent = t.loginBtn;
+        }
+
+        function login(event) {
+            event.preventDefault();
+            
+            // Add loading state
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.innerHTML = '<span style="display: inline-block; width: 16px; height: 16px; border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px;"></span> Signing In...';
+            loginBtn.disabled = true;
+            
+            // Simulate login process
+            setTimeout(() => {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appContainer').classList.add('active');
+                
+                // Initialize icons after the app loads
+                if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                    lucide.createIcons();
+                }
+            }, 1500);
+        }
+
+        function logout() {
+            document.getElementById('appContainer').classList.remove('active');
+            document.getElementById('loginPage').style.display = 'flex';
+            
+            // Reset login form
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.textContent = currentLanguage === 'en' ? 'Sign In' : 'Iniciar Sesión';
+            loginBtn.disabled = false;
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+            
+            // Add click ripple effect to interactive elements
+            const interactiveElements = document.querySelectorAll('button:not(.lang-btn), .nav-item, .card, .schedule-item, .task-item, .message-item');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    // Skip ripple for certain elements
+                    if (this.classList.contains('login-btn') || this.classList.contains('user-profile')) {
+                        return;
+                    }
+                    
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(26, 35, 126, 0.2);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s ease-out;
+                        pointer-events: none;
+                        z-index: 1;
+                    `;
+                    
+                    // Ensure the parent can contain the ripple
+                    const currentPosition = window.getComputedStyle(this).position;
+                    if (currentPosition === 'static') {
+                        this.style.position = 'relative';
+                    }
+                    this.style.overflow = 'hidden';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple && ripple.parentNode) {
+                            ripple.remove();
+                        }
+                    }, 600);
+                });
+            });
+        });
+
+        // Error handling for missing Lucide
+        window.addEventListener('error', function(e) {
+            if (e.message.includes('lucide')) {
+                console.warn('Lucide icons not loaded, using fallback');
+                // Replace data-lucide attributes with simple text or symbols
+                document.querySelectorAll('[data-lucide]').forEach(el => {
+                    const iconName = el.getAttribute('data-lucide');
+                    const iconMap = {
+                        'user': '👤',
+                        'log-out': '🚪',
+                        'home': '🏠',
+                        'horse': '🐎',
+                        'calendar': '📅',
+                        'clipboard-list': '📋',
+                        'users': '👥',
+                        'file-text': '📄',
+                        'message-square': '💬',
+                        'settings': '⚙️',
+                        'clock': '🕐',
+                        'alert-triangle': '⚠️',
+                        'message-circle': '💭',
+                        'clipboard-check': '✅',
+                        'calendar-days': '📆'
+                    };
+                    if (iconMap[iconName]) {
+                        el.textContent = iconMap[iconName];
+                        el.style.width = '20px';
+                        el.style.height = '20px';
+                        el.style.display = 'inline-block';
+                        el.style.textAlign = 'center';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
