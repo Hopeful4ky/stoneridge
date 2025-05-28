@@ -1,45 +1,94 @@
-<<<<<<< HEAD
-# React + Vite
+# Stoneridge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application built with Vite and Tailwind CSS v4.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚛️ **React 19** - Latest React with modern features
+- ⚡ **Vite** - Fast build tool and development server
+- 🎨 **Tailwind CSS v4** - Latest utility-first CSS framework
+- 🔧 **PostCSS** - CSS processing with autoprefixer
+- 📱 **Responsive Design** - Mobile-first approach
+- 🌙 **Dark Mode Support** - Built-in dark mode capabilities
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# Color adjustments
+- **Frontend**: React 19, Vite
+- **Styling**: Tailwind CSS v4, PostCSS, Autoprefixer
+- **Development**: ESLint, Hot Module Replacement (HMR)
+- **Fonts**: Inter, Playfair Display
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+## Getting Started
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/heirregular-4477s-projects/v0-color-adjustments)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/iUriUj6mNXF)
+### Prerequisites
 
-## Overview
+- Node.js (v16 or higher)
+- npm, yarn, or pnpm
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+### Installation
 
-## Deployment
+1. Clone the repository:
+```bash
+git clone https://github.com/Hopeful4ky/stoneridge.git
+cd stoneridge
+```
 
-Your project is live at:
+2. Install dependencies:
+```bash
+npm install
+```
 
-**[https://vercel.com/heirregular-4477s-projects/v0-color-adjustments](https://vercel.com/heirregular-4477s-projects/v0-color-adjustments)**
+3. Start the development server:
+```bash
+npm run dev
+```
 
-## Build your app
+4. Open your browser and visit `http://localhost:5173`
 
-Continue building your app on:
+## Available Scripts
 
-**[https://v0.dev/chat/projects/iUriUj6mNXF](https://v0.dev/chat/projects/iUriUj6mNXF)**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-## How It Works
+## Project Structure
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
->>>>>>> 52ef5c3fb3851459e506d62bd4b08549c9223910
+```
+stoneridge/
+├── public/          # Static assets
+├── src/             # Source code
+│   ├── assets/      # Images, icons, etc.
+│   ├── components/  # React components
+│   ├── App.jsx      # Main App component
+│   ├── main.jsx     # Entry point
+│   └── index.css    # Global styles with Tailwind
+├── tailwind.config.js  # Tailwind configuration
+├── vite.config.js      # Vite configuration
+└── package.json        # Dependencies and scripts
+```
+
+## Tailwind CSS v4
+
+This project uses the latest Tailwind CSS v4 with:
+- Simplified configuration
+- Improved performance
+- Better TypeScript support
+- Enhanced dark mode
+- Custom color palette including burgundy
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is private and proprietary.
+
+## Contact
+
+For questions or support, please contact the development team.
