@@ -11,6 +11,11 @@ export default {
         burgundy: "#77153a",
         silver: "#C0C0C0",
       },
+      ringColor: {
+        navy: "#1d237d",
+        burgundy: "#77153a",
+        silver: "#C0C0C0",
+      },
       fontFamily: {
         playfair: ["Playfair Display", "serif"],
         inter: ["Inter", "sans-serif"],
