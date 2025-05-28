@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+.gradient-bg {
+  background: linear-gradient(to bottom, #001F3F, #1a4971);
+}
+.card-hover:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+.btn-hover:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s;
+}
+.sidebar-item:hover {
+  background-color: #1a4971;
+  transition: background-color 0.2s;
+}
+.checkbox-anim:checked {
+  animation: check 0.3s ease-in-out;
+}
+@keyframes check {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.input-focus:focus {
+  @apply ring-2 ring-burgundy;
+  transition: ring 0.2s;
+}
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
