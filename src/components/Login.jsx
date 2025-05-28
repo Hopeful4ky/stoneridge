@@ -5,7 +5,7 @@ function Login({ language, setLanguage, handleLogin, isLoading }) {
     return (
         <div className="min-h-screen gradient-bg flex items-center justify-center px-4">
             <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md card-hover">
-                <img src={crest} alt="StoneRidge Crest" className="mx-auto mb-6 w-28 animate-fade-in" />
+                <img src={crest} alt="StoneRidge Crest" className="mx-auto mt-2.5 mb-2.5 w-36 animate-fade-in" />
                 <h1 className="text-4xl text-center text-navy mb-8 font-playfair tracking-wide">
                     STONE RIDGE SADDLEBREDS
                 </h1>
@@ -14,7 +14,7 @@ function Login({ language, setLanguage, handleLogin, isLoading }) {
                         className={`px-5 py-2 rounded-full ${
                             language === 'English' ? 'bg-burgundy text-white' : 'bg-gray-200'
                         } btn-hover shadow-md transition-all duration-300`}
-                        style={{ backgroundImage: language === 'English' ? 'linear-gradient(to bottom, #800020, #a0002a)' : 'none' }}
+                        style={{ backgroundImage: language === 'English' ? 'linear-gradient(to bottom, #77153a, #a0002a)' : 'none' }}
                         onClick={() => setLanguage('English')}
                     >
                         English
@@ -23,7 +23,7 @@ function Login({ language, setLanguage, handleLogin, isLoading }) {
                         className={`px-5 py-2 rounded-full ${
                             language === 'Español' ? 'bg-burgundy text-white' : 'bg-gray-200'
                         } btn-hover shadow-md transition-all duration-300`}
-                        style={{ backgroundImage: language === 'Español' ? 'linear-gradient(to bottom, #800020, #a0002a)' : 'none' }}
+                        style={{ backgroundImage: language === 'Español' ? 'linear-gradient(to bottom, #77153a, #a0002a' : 'none' }}
                         onClick={() => setLanguage('Español')}
                     >
                         Español
@@ -47,7 +47,7 @@ function Login({ language, setLanguage, handleLogin, isLoading }) {
                 </div>
                 <button
                     className="w-full bg-burgundy text-white py-3 rounded-full btn-hover shadow-md flex justify-center items-center disabled:opacity-50"
-                    style={{ backgroundImage: 'linear-gradient(to bottom, #800020, #a0002a)' }}
+                    style={{ backgroundImage: 'linear-gradient(135deg, #1d237d, #77153a)' }}
                     onClick={handleLogin}
                     disabled={isLoading}
                 >

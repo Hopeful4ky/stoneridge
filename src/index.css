@@ -2,6 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap');
 
+:root {
+  --silver: #C0C0C0;
+}
+
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -9,7 +13,7 @@ h1, h2, h3 {
   font-family: 'Playfair Display', serif;
 }
 .gradient-bg {
-  background: linear-gradient(to bottom, #001F3F, #1a4971);
+  background: linear-gradient(135deg, #1d237d, #77153a);
 }
 .card-hover:hover {
   transform: scale(1.02);
@@ -17,10 +21,11 @@ h1, h2, h3 {
 }
 .btn-hover:hover {
   transform: translateY(-2px);
-  transition: transform 0.2s;
+  box-shadow: 0 8px 20px rgba(26, 35, 126, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .sidebar-item:hover {
-  background-color: #1a4971;
+  background-color: #77153a;
   transition: background-color 0.2s;
 }
 .checkbox-anim:checked {
@@ -31,10 +36,15 @@ h1, h2, h3 {
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
+.input-focus {
+  border: 2px solid var(--silver);
+  border-radius: 10px;
+}
 .input-focus:focus {
-  outline: 2px solid #800020;
-  outline-offset: 2px;
-  transition: outline 0.2s;
+  transition: all 0.3s ease;
+  outline: none;
+  border-color: #1d237d;
+  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
 }
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in;

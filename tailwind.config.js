@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: "#001F3F",
-        burgundy: "#800020",
+        navy: "#1d237d",
+        burgundy: "#77153a",
         silver: "#C0C0C0",
       },
       fontFamily: {

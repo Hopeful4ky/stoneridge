@@ -3,7 +3,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline';
 
 function Header({ toggleSidebar }) {
     return (
-        <header className="sticky top-0 bg-gradient-to-b from-navy to-[#1a4971] text-white p-4 shadow-md z-10">
+        <header className="sticky top-0 bg-gradient-to-b from-navy to-[#77153a] text-white p-4 shadow-md z-10">
             <div className="flex items-center justify-between max-w-7xl mx-auto">
                 <div className="flex items-center">
                     <img src={crest} alt="StoneRidge Crest" className="w-10 mr-3" />
