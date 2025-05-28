@@ -4,7 +4,6 @@ node_modules
 .pnp.js
 
 # Production builds
-dist
 dist-ssr
 build
 out
@@ -81,7 +80,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
