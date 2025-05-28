@@ -32,8 +32,9 @@ h1, h2, h3 {
   100% { transform: scale(1); }
 }
 .input-focus:focus {
-  @apply ring-2 ring-burgundy;
-  transition: ring 0.2s;
+  outline: 2px solid #800020;
+  outline-offset: 2px;
+  transition: outline 0.2s;
 }
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in;
